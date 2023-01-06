@@ -14,7 +14,6 @@ public class Player {
         this.playerId = playerId;
         this.currentHand = stringToCardList(currentHand);
 
-        sortHand();
         this.handType = (new PokerHand(this.currentHand).determineHandType());
 
         System.out.println(handType.toString());
@@ -40,22 +39,5 @@ public class Player {
         }
 
         return cardList;
-    }
-
-    public void sortHand() {
-        for (int i = 0; i < currentHand.size()-1; i++) {
-
-            int min_idx = i;
-            for (int j = i+1; j < currentHand.size(); j++) {
-                if (currentHand.get(j).getRank().getNumericalRepresentation() <
-                        currentHand.get(min_idx).getRank().getNumericalRepresentation()) {
-                    min_idx = j;
-                }
-            }
-
-            Card temp = currentHand.get(min_idx);
-            currentHand.set(min_idx, currentHand.get(i));
-            currentHand.set(i, temp);
-        }
     }
 }

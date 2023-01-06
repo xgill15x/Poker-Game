@@ -1,7 +1,8 @@
 package PokerHand;
 
-import java.util.*;
 import Card.*;
+
+import java.util.*;
 
 public class PokerHand {
 
@@ -9,6 +10,7 @@ public class PokerHand {
 
     public PokerHand(List<Card> pokerHand) {
         this.pokerHand = pokerHand;
+        sortHandByRank();
     }
 
     public HandType determineHandType() {
@@ -62,9 +64,19 @@ public class PokerHand {
     }
 
     public boolean isStraight() {
+
         if (pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(1).getRank().getNumericalRepresentation()-1 &&
                 pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(2).getRank().getNumericalRepresentation()-2) {
             return true;
+        }
+
+        if (pokerHand.get(2).getRank() == Rank.ACE) {
+            Rank.ACE.setNumericalRepresentation(1);
+            sortHandByRank();
+            if (pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(1).getRank().getNumericalRepresentation()-1 &&
+                    pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(2).getRank().getNumericalRepresentation()-2) {
+                return true;
+            }
         }
         return false;
     }
@@ -82,5 +94,22 @@ public class PokerHand {
             return true;
         }
         return false;
+    }
+
+    public void sortHandByRank() {
+        for (int i = 0; i < pokerHand.size()-1; i++) {
+
+            int min_idx = i;
+            for (int j = i+1; j < pokerHand.size(); j++) {
+                if (pokerHand.get(j).getRank().getNumericalRepresentation() <
+                        pokerHand.get(min_idx).getRank().getNumericalRepresentation()) {
+                    min_idx = j;
+                }
+            }
+
+            Card temp = pokerHand.get(min_idx);
+            pokerHand.set(min_idx, pokerHand.get(i));
+            pokerHand.set(i, temp);
+        }
     }
 }

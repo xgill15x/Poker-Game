@@ -1,4 +1,4 @@
-import Player.Player;
+import Player.*;
 
 import java.util.*;
 

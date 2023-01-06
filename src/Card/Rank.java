@@ -27,6 +27,10 @@ public enum Rank {
         return numericalRepresentation;
     }
 
+    public void setNumericalRepresentation(Integer numericalRepresentation) {
+        this.numericalRepresentation = numericalRepresentation;
+    }
+
     @Override
     public String toString() {
         return letterRepresentation;
