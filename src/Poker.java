@@ -17,6 +17,10 @@ public class Poker {
 
         //get number of players
          numberOfPlayers = Integer.parseInt(scanner.nextLine());
+         if (numberOfPlayers < 1 || numberOfPlayers > 8) {
+             System.out.println("Number of players is invalid. Please confirm it's between 1 and 8...");
+             System.exit(1);
+         }
 
         //populate playerIds and player hands
         for (int i = 0; i < numberOfPlayers; i++) {

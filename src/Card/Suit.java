@@ -6,7 +6,7 @@ public enum Suit {
     SPADES("s"),
     CLUBS("c");
 
-    private String letterRepresentation;
+    private final String letterRepresentation;
 
     Suit(String letterRepresentation) {
         this.letterRepresentation = letterRepresentation;

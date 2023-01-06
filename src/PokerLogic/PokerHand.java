@@ -6,11 +6,17 @@ import java.util.*;
 
 public class PokerHand {
 
+    private static final Integer numberOfCardsAllowedPerHand = 3;
     private final List<Card> pokerHand;
 
     public PokerHand(List<Card> pokerHand) {
         this.pokerHand = pokerHand;
+        checkValidInput();
         sortHandByRank();
+    }
+
+    public Integer getNumberOfCardsPerHand() {
+        return numberOfCardsAllowedPerHand;
     }
 
     public HandType determineHandType() {
@@ -177,6 +183,17 @@ public class PokerHand {
             Card temp = pokerHand.get(min_idx);
             pokerHand.set(min_idx, pokerHand.get(i));
             pokerHand.set(i, temp);
+        }
+    }
+
+    public void checkValidInput() {
+        if (pokerHand.size() > numberOfCardsAllowedPerHand) {
+            System.out.println("Too many cards per hand...");
+            System.exit(1);
+        }
+        else if (pokerHand.size() < numberOfCardsAllowedPerHand) {
+            System.out.println("Too few cards per hand...");
+            System.exit(1);
         }
     }
 }

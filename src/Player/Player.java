@@ -25,15 +25,24 @@ public class Player {
     }
 
     public List<Card> stringToCardList(String pokerHand) {
-        List<Card> cards = new ArrayList<>();
         String[] splitPokerHand = pokerHand.split(" ");
 
+        List<Card> cards = new ArrayList<>();
         for (String card : splitPokerHand) {
             String rank = Character.toString(card.charAt(0));
             String suit = Character.toString(card.charAt(1));
 
             cards.add(new Card(suit, rank));
         }
+
+//        if (currentHand.getNumberOfCardsPerHand() < cards.size()) {
+//            System.out.println("Too many cards per hand...");
+//            System.exit(1);
+//        }
+//        else if (currentHand.getNumberOfCardsPerHand() > cards.size()) {
+//            System.out.println("Too few cards per hand...");
+//            System.exit(1);
+//        }
 
         return cards;
     }

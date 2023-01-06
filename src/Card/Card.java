@@ -1,8 +1,8 @@
 package Card;
 
 public class Card {
-    private Suit suit;
-    private Rank rank;
+    private final Suit suit;
+    private final Rank rank;
 
     public Card(String suit, String rank) {
         this.suit = stringToSuit(suit);
@@ -24,7 +24,7 @@ public class Card {
             }
         }
 
-        System.out.println("One or more suits do not exist...");
+        System.out.println("One or more suits/ranks do not exist...");
         System.exit(1);
         return null;
     }
@@ -36,7 +36,7 @@ public class Card {
             }
         }
 
-        System.out.println("One or more ranks do not exist...");
+        System.out.println("One or more suit/ranks do not exist...");
         System.exit(1);
         return null;
     }

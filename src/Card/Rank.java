@@ -15,7 +15,7 @@ public enum Rank {
     KING("K", 13),
     ACE("A", 14);
 
-    private String letterRepresentation;
+    private final String letterRepresentation;
     private Integer numericalRepresentation;
 
     Rank(String letterRepresentation, Integer numericalRepresentation) {
