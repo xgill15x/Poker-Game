@@ -36,20 +36,33 @@ public class PokerHand {
     }
 
     public boolean isPair() {
-        Integer numberOfMatchingCards = 0;
 
+        Map<Rank, Integer> rankToOccurrences = new HashMap<>();
+        Integer numberOfPairs = 0;
+
+        //populate map with number of occurrences for each rank
         for (int i=0; i<pokerHand.size(); i++) {
             for (int j=i+1; j<pokerHand.size(); j++) {
-                if (pokerHand.get(i).getRank() == pokerHand.get(j).getRank() && numberOfMatchingCards == 0) {
-                    numberOfMatchingCards = 2;
-                }
-                else if (pokerHand.get(i).getRank() == pokerHand.get(j).getRank() && numberOfMatchingCards != 0) {
-                    numberOfMatchingCards += 1;
+                if (pokerHand.get(i).getRank() == pokerHand.get(j).getRank()) {
+                    if (rankToOccurrences.containsKey(pokerHand.get(i).getRank())) {
+                        Integer oldOccurrenceValue = rankToOccurrences.get(pokerHand.get(i).getRank());
+                        rankToOccurrences.put(pokerHand.get(i).getRank(), oldOccurrenceValue + 1);
+                    }
+                    else {
+                        rankToOccurrences.put(pokerHand.get(i).getRank(), 2);
+                    }
                 }
             }
         }
 
-        if (numberOfMatchingCards == 2) {
+        //check to see which ranks have an occurrence of 2
+        for (Rank rank : rankToOccurrences.keySet()) {
+            if (rankToOccurrences.get(rank) == 2) {
+                numberOfPairs += 1;
+            }
+        }
+
+        if (numberOfPairs == 1) {
             return true;
         }
         return false;
