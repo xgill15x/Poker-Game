@@ -15,7 +15,7 @@ public class Poker {
     public static void getPokerGameData() {
         Scanner scanner = new Scanner(System.in);
 
-        //get # of players
+        //get number of players
          numberOfPlayers = Integer.parseInt(scanner.nextLine());
 
         //populate playerIds and player hands
@@ -24,7 +24,6 @@ public class Poker {
 
             Integer playerId = Integer.parseInt(playerInfo[0]);
             String playerHand = playerInfo[1];
-
             players.add(new Player(playerId, playerHand));
         }
 

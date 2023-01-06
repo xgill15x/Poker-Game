@@ -15,7 +15,7 @@ public class PokerJudge {
 
     public PokerJudge(List<Player> players) {
         for (Player player : players) {
-            switch (player.getHandType()) {
+            switch (player.getCurrentHand().determineHandType()) {
                 case STRAIGHT_FLUSH:
                     straightFlushPlayers.add(player);
                     break;

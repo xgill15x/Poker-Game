@@ -6,7 +6,7 @@ import java.util.*;
 
 public class PokerHand {
 
-    private List<Card> pokerHand;
+    private final List<Card> pokerHand;
 
     public PokerHand(List<Card> pokerHand) {
         this.pokerHand = pokerHand;
@@ -37,24 +37,32 @@ public class PokerHand {
 
     public boolean isPair() {
         Map<Rank, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
-        Integer numberOfThreeOfAKinds = 0;
+        Integer numberOfPairs = 0;
 
         //check to see which ranks have an occurrence of 2
         for (Rank rank : rankToOccurrencesMap.keySet()) {
             if (rankToOccurrencesMap.get(rank) == 2) {
-                numberOfThreeOfAKinds += 1;
+                numberOfPairs += 1;
             }
         }
 
-        if ( numberOfThreeOfAKinds == 1) {
+        if (numberOfPairs == 1) {
             return true;
         }
         return false;
     }
 
     public boolean isFlush() {
-        if (pokerHand.get(0).getSuit() == pokerHand.get(1).getSuit() &&
-                pokerHand.get(1).getSuit() == pokerHand.get(2).getSuit()) {
+        Map<Suit, Integer> suitToOccurrencesMap = getSuitToOccurrencesMap();
+        Integer numberOfFlushes = 0;
+
+        for (Suit suit : suitToOccurrencesMap.keySet()) {
+            if (suitToOccurrencesMap.get(suit)-1 == pokerHand.size()) {
+                numberOfFlushes += 1;
+            }
+        }
+
+        if (numberOfFlushes == 1) { //there should only ever be a single flush
             return true;
         }
         return false;
@@ -132,6 +140,27 @@ public class PokerHand {
         }
 
         return rankToOccurrences;
+    }
+
+    public Map<Suit, Integer> getSuitToOccurrencesMap() {
+        Map<Suit, Integer> suitToOccurrences = new HashMap<>();
+
+        //populate map with number of occurrences for each rank
+        for (int i=0; i<pokerHand.size(); i++) {
+            for (int j=i+1; j<pokerHand.size(); j++) {
+                if (pokerHand.get(i).getSuit() == pokerHand.get(j).getSuit()) {
+                    if (suitToOccurrences.containsKey(pokerHand.get(i).getSuit())) {
+                        Integer oldOccurrenceValue = suitToOccurrences.get(pokerHand.get(i).getSuit());
+                        suitToOccurrences.put(pokerHand.get(i).getSuit(), oldOccurrenceValue + 1);
+                    }
+                    else {
+                        suitToOccurrences.put(pokerHand.get(i).getSuit(), 2);
+                    }
+                }
+            }
+        }
+
+        return suitToOccurrences;
     }
 
     public void sortHandByRank() {

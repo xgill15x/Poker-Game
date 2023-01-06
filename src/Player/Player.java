@@ -7,41 +7,34 @@ import java.util.*;
 
 public class Player {
     private final Integer playerId;
-    private final List<Card> currentHand;
-    private final HandType handType;
+    private final PokerHand currentHand;
 
     public Player(Integer playerId, String currentHand) {
         this.playerId = playerId;
-        this.currentHand = stringToCardList(currentHand);
+        this.currentHand = new PokerHand(stringToCardList(currentHand));
 
-        this.handType = (new PokerHand(this.currentHand).determineHandType());
-
-        System.out.println(handType.toString());
+        System.out.println(this.currentHand.determineHandType().toString());
     }
 
     public Integer getPlayerId() {
         return playerId;
     }
 
-    public List<Card> getCurrentHand() {
+    public PokerHand getCurrentHand() {
         return currentHand;
     }
 
-    public HandType getHandType() {
-        return handType;
-    }
-
     public List<Card> stringToCardList(String pokerHand) {
-        List<Card> cardList = new ArrayList<>();
+        List<Card> cards = new ArrayList<>();
         String[] splitPokerHand = pokerHand.split(" ");
 
         for (String card : splitPokerHand) {
             String rank = Character.toString(card.charAt(0));
             String suit = Character.toString(card.charAt(1));
 
-            cardList.add(new Card(suit, rank));
+            cards.add(new Card(suit, rank));
         }
 
-        return cardList;
+        return cards;
     }
 }
