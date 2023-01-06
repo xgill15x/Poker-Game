@@ -1,7 +1,7 @@
 package Player;
 
 import Card.*;
-import PokerHand.*;
+import PokerLogic.*;
 
 import java.util.*;
 
@@ -25,6 +25,10 @@ public class Player {
 
     public List<Card> getCurrentHand() {
         return currentHand;
+    }
+
+    public HandType getHandType() {
+        return handType;
     }
 
     public List<Card> stringToCardList(String pokerHand) {
