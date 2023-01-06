@@ -70,13 +70,18 @@ public class PokerHand {
             return true;
         }
 
+        //If there is an A-rank card, change its numerical value to 1 to see if it forms a straight
         if (pokerHand.get(2).getRank() == Rank.ACE) {
             Rank.ACE.setNumericalRepresentation(1);
             sortHandByRank();
             if (pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(1).getRank().getNumericalRepresentation()-1 &&
                     pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(2).getRank().getNumericalRepresentation()-2) {
+                Rank.ACE.setNumericalRepresentation(14);
+                sortHandByRank();
                 return true;
             }
+            Rank.ACE.setNumericalRepresentation(14);
+            sortHandByRank();
         }
         return false;
     }

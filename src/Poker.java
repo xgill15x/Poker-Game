@@ -5,7 +5,8 @@ import java.util.*;
 public class Poker {
 
     public static Integer numberOfPlayers = 0;
-    public static List<Player> listOfPlayers = new ArrayList<>();
+    public static List<Player> players = new ArrayList<>();
+    public static List<Integer> winners = new ArrayList<>();
 
     public static void main(String[] args) {
         getPokerGameData();
@@ -24,7 +25,7 @@ public class Poker {
             Integer playerId = Integer.parseInt(playerInfo[0]);
             String playerHand = playerInfo[1];
 
-            listOfPlayers.add(new Player(playerId, playerHand));
+            players.add(new Player(playerId, playerHand));
         }
 
         scanner.close();
