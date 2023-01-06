@@ -78,25 +78,32 @@ public class PokerHand {
 
     public boolean isStraight() {
 
-        if (pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(1).getRank().getNumericalRepresentation()-1 &&
-                pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(2).getRank().getNumericalRepresentation()-2) {
-            return true;
+        boolean isStraight = true;
+
+        for (int i=0; i<pokerHand.size(); i++) {
+            if (pokerHand.get(0).getRank().getNumericalRepresentation() != pokerHand.get(i).getRank().getNumericalRepresentation() - i) {
+                isStraight = false;
+            }
         }
 
         //If there is an A-rank card, change its numerical value to 1 to see if it forms a straight
-        if (pokerHand.get(2).getRank() == Rank.ACE) {
+        if (pokerHand.get(pokerHand.size()-1).getRank() == Rank.ACE && isStraight == false) {
             Rank.ACE.setNumericalRepresentation(1);
             sortHandByRank();
-            if (pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(1).getRank().getNumericalRepresentation()-1 &&
-                    pokerHand.get(0).getRank().getNumericalRepresentation() == pokerHand.get(2).getRank().getNumericalRepresentation()-2) {
-                Rank.ACE.setNumericalRepresentation(14);
-                sortHandByRank();
-                return true;
+
+            isStraight = true;
+            for (int i=0; i<pokerHand.size(); i++) {
+                if (pokerHand.get(0).getRank().getNumericalRepresentation() != pokerHand.get(i).getRank().getNumericalRepresentation() - i) {
+                    Rank.ACE.setNumericalRepresentation(14);
+                    sortHandByRank();
+                    isStraight = false;
+                }
             }
             Rank.ACE.setNumericalRepresentation(14);
             sortHandByRank();
         }
-        return false;
+
+        return isStraight;
     }
 
     public boolean isThreeOfAKind() {
