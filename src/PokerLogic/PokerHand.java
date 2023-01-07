@@ -15,10 +15,6 @@ public class PokerHand {
         sortHandByRank();
     }
 
-    public Integer getNumberOfCardsPerHand() {
-        return numberOfCardsAllowedPerHand;
-    }
-
     public HandType determineHandType() {
         HandType handType = HandType.HIGH_CARD;
 

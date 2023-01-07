@@ -35,15 +35,6 @@ public class Player {
             cards.add(new Card(suit, rank));
         }
 
-//        if (currentHand.getNumberOfCardsPerHand() < cards.size()) {
-//            System.out.println("Too many cards per hand...");
-//            System.exit(1);
-//        }
-//        else if (currentHand.getNumberOfCardsPerHand() > cards.size()) {
-//            System.out.println("Too few cards per hand...");
-//            System.exit(1);
-//        }
-
         return cards;
     }
 }
