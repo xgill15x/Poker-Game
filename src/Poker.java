@@ -47,7 +47,7 @@ public class Poker {
     public static void determineWinners() {
         PokerJudge pokerJudge = new PokerJudge(players);
         StringBuilder winnersMessage = new StringBuilder();
-        
+
         for (Player player : pokerJudge.getWinners()) {
             winnersMessage.append(player.getPlayerId().toString()).append(" ");
         }

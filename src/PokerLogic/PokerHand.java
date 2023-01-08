@@ -6,9 +6,8 @@ import java.util.*;
 
 public class PokerHand {
 
-    private static final Integer numberOfCardsAllowedPerHand = 3;
-
     private List<Card> cards = new ArrayList<>();
+    private static final Integer numberOfCardsAllowedPerHand = 3;
 
     public PokerHand() {}
 
@@ -66,7 +65,6 @@ public class PokerHand {
                 numberOfPairs += 1;
             }
         }
-
         return numberOfPairs == 1;
     }
 
@@ -79,8 +77,6 @@ public class PokerHand {
                 numberOfFlushes += 1;
             }
         }
-
-        //there should only ever be a single flush
         return numberOfFlushes == 1;
     }
 
@@ -110,7 +106,6 @@ public class PokerHand {
             Ranks.ACE.setNumericalRepresentation(14);
             sortHandByRank();
         }
-
         return isStraight;
     }
 
@@ -124,7 +119,6 @@ public class PokerHand {
                 numberOfThreeOfAKinds += 1;
             }
         }
-
         return numberOfThreeOfAKinds == 1;
     }
 
@@ -145,7 +139,6 @@ public class PokerHand {
                 rankToOccurrences.put(card.getRank(), 1);
             }
         }
-
         return rankToOccurrences;
     }
 
@@ -162,7 +155,6 @@ public class PokerHand {
                 suitToOccurrences.put(card.getSuit(), 1);
             }
         }
-
         return suitToOccurrences;
     }
 
