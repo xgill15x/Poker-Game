@@ -32,7 +32,6 @@ public class Poker {
         //populate playerIds and player hands
         for (int i=0; i<numberOfPlayers; i++) {
             String[] playerInfo = scanner.nextLine().trim().split(" ", 2);
-
             try {
                 Integer playerId = Integer.parseInt(playerInfo[0].trim());
                 String playerHand = playerInfo[1].trim();
@@ -41,19 +40,17 @@ public class Poker {
                 System.out.println("'Player ID' contains invalid characters...");
                 System.exit(1);
             }
-
         }
         scanner.close();
     }
 
     public static void determineWinners() {
         PokerJudge pokerJudge = new PokerJudge(players);
-
         StringBuilder winnersMessage = new StringBuilder();
+        
         for (Player player : pokerJudge.getWinners()) {
             winnersMessage.append(player.getPlayerId().toString()).append(" ");
         }
-
-        System.out.println(winnersMessage);
+        System.out.println(winnersMessage.toString().trim());
     }
 }

@@ -53,7 +53,7 @@ public class PokerJudge {
                                 System.out.println("A fatal error has occurred...");
                                 System.exit(1);
                             }
-                            return players;
+                            return breakTiesAndGetWinner(players);
                         }
                         return breakPairTiesAndGetWinner(pairPlayers);
                     }
