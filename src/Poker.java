@@ -1,4 +1,5 @@
 import Player.*;
+import PokerLogic.PokerJudge;
 
 import java.util.*;
 
@@ -10,6 +11,7 @@ public class Poker {
 
     public static void main(String[] args) {
         getPokerGameData();
+        determineWinners();
     }
 
     public static void getPokerGameData() {
@@ -32,5 +34,16 @@ public class Poker {
         }
 
         scanner.close();
+    }
+
+    public static void determineWinners() {
+        PokerJudge pokerJudge = new PokerJudge(players);
+
+        StringBuilder winnersMessage = new StringBuilder();
+        for (Player player : pokerJudge.getWinners()) {
+            winnersMessage.append(player.getPlayerId().toString() + " ");
+        }
+
+        System.out.println(winnersMessage);
     }
 }

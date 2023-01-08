@@ -1,6 +1,6 @@
 package Card;
 
-public enum Rank {
+public enum Ranks {
     TWO("2", 2),
     THREE("3", 3),
     FOUR("4", 4),
@@ -18,7 +18,7 @@ public enum Rank {
     private final String letterRepresentation;
     private Integer numericalRepresentation;
 
-    Rank(String letterRepresentation, Integer numericalRepresentation) {
+    Ranks(String letterRepresentation, Integer numericalRepresentation) {
         this.letterRepresentation = letterRepresentation;
         this.numericalRepresentation = numericalRepresentation;
     }

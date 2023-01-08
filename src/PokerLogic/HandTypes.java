@@ -1,6 +1,6 @@
 package PokerLogic;
 
-public enum HandType {
+public enum HandTypes {
     STRAIGHT_FLUSH,
     THREE_OF_A_KIND,
     STRAIGHT,

@@ -7,42 +7,42 @@ import java.util.*;
 public class PokerHand {
 
     private static final Integer numberOfCardsAllowedPerHand = 3;
-    private final List<Card> pokerHand;
+    private List<Card> cards = new ArrayList<>();
+
+    public PokerHand() {};
 
     public PokerHand(List<Card> pokerHand) {
-        this.pokerHand = pokerHand;
+        this.cards = pokerHand;
         checkValidInput();
         sortHandByRank();
     }
 
-    public HandType determineHandType() {
-        HandType handType = HandType.HIGH_CARD;
+    public List<Card> getCards() {
+        return cards;
+    }
 
-        if (isPair()) {
-            handType = HandType.PAIR;
-        }
-        if (isFlush()) {
-            handType = HandType.FLUSH;
-        }
-        if (isStraight()) {
-            handType = HandType.STRAIGHT;
-        }
-        if (isThreeOfAKind()) {
-            handType = HandType.THREE_OF_A_KIND;
-        }
-        if (isStraightFlush()) {
-            handType = HandType.STRAIGHT_FLUSH;
-        }
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+    }
 
-        return handType;
+    public Card getCardAt(int i) {
+        return cards.get(i);
+    }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public Integer getNumberOfCardsAllowedPerHand() {
+        return numberOfCardsAllowedPerHand;
     }
 
     public boolean isPair() {
-        Map<Rank, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
+        Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
         Integer numberOfPairs = 0;
 
         //check to see which ranks have an occurrence of 2
-        for (Rank rank : rankToOccurrencesMap.keySet()) {
+        for (Ranks rank : rankToOccurrencesMap.keySet()) {
             if (rankToOccurrencesMap.get(rank) == 2) {
                 numberOfPairs += 1;
             }
@@ -55,11 +55,11 @@ public class PokerHand {
     }
 
     public boolean isFlush() {
-        Map<Suit, Integer> suitToOccurrencesMap = getSuitToOccurrencesMap();
+        Map<Suits, Integer> suitToOccurrencesMap = getSuitToOccurrencesMap();
         Integer numberOfFlushes = 0;
 
-        for (Suit suit : suitToOccurrencesMap.keySet()) {
-            if (suitToOccurrencesMap.get(suit)-1 == pokerHand.size()) {
+        for (Suits suit : suitToOccurrencesMap.keySet()) {
+            if (suitToOccurrencesMap.get(suit)-1 == cards.size()) {
                 numberOfFlushes += 1;
             }
         }
@@ -73,26 +73,26 @@ public class PokerHand {
     public boolean isStraight() {
         boolean isStraight = true;
 
-        for (int i=0; i<pokerHand.size(); i++) {
-            if (pokerHand.get(0).getRank().getNumericalRepresentation() != pokerHand.get(i).getRank().getNumericalRepresentation() - i) {
+        for (int i=0; i<cards.size(); i++) {
+            if (cards.get(0).getRank().getNumericalRepresentation() != cards.get(i).getRank().getNumericalRepresentation() - i) {
                 isStraight = false;
             }
         }
 
         //If there is an A-rank card, change its numerical value to 1 to see if it forms a straight
-        if (pokerHand.get(pokerHand.size()-1).getRank() == Rank.ACE && isStraight == false) {
-            Rank.ACE.setNumericalRepresentation(1);
+        if (cards.get(cards.size()-1).getRank() == Ranks.ACE && isStraight == false) {
+            Ranks.ACE.setNumericalRepresentation(1);
             sortHandByRank();
 
             isStraight = true;
-            for (int i=0; i<pokerHand.size(); i++) {
-                if (pokerHand.get(0).getRank().getNumericalRepresentation() != pokerHand.get(i).getRank().getNumericalRepresentation() - i) {
-                    Rank.ACE.setNumericalRepresentation(14);
+            for (int i=0; i<cards.size(); i++) {
+                if (cards.get(0).getRank().getNumericalRepresentation() != cards.get(i).getRank().getNumericalRepresentation() - i) {
+                    Ranks.ACE.setNumericalRepresentation(14);
                     sortHandByRank();
                     isStraight = false;
                 }
             }
-            Rank.ACE.setNumericalRepresentation(14);
+            Ranks.ACE.setNumericalRepresentation(14);
             sortHandByRank();
         }
 
@@ -100,11 +100,11 @@ public class PokerHand {
     }
 
     public boolean isThreeOfAKind() {
-        Map<Rank, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
+        Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
         Integer numberOfThreeOfAKinds = 0;
 
         //check to see which ranks have an occurrence of 3
-        for (Rank rank : rankToOccurrencesMap.keySet()) {
+        for (Ranks rank : rankToOccurrencesMap.keySet()) {
             if (rankToOccurrencesMap.get(rank)-1 == 3) {
                 numberOfThreeOfAKinds += 1;
             }
@@ -123,19 +123,41 @@ public class PokerHand {
         return false;
     }
 
-    public Map<Rank, Integer> getRankToOccurrencesMap() {
-        Map<Rank, Integer> rankToOccurrences = new HashMap<>();
+    public HandTypes determineHandType() {
+        HandTypes handType = HandTypes.HIGH_CARD;
+
+        if (isPair()) {
+            handType = HandTypes.PAIR;
+        }
+        if (isFlush()) {
+            handType = HandTypes.FLUSH;
+        }
+        if (isStraight()) {
+            handType = HandTypes.STRAIGHT;
+        }
+        if (isThreeOfAKind()) {
+            handType = HandTypes.THREE_OF_A_KIND;
+        }
+        if (isStraightFlush()) {
+            handType = HandTypes.STRAIGHT_FLUSH;
+        }
+
+        return handType;
+    }
+
+    public Map<Ranks, Integer> getRankToOccurrencesMap() {
+        Map<Ranks, Integer> rankToOccurrences = new HashMap<>();
 
         //populate map with number of occurrences for each rank
-        for (int i=0; i<pokerHand.size(); i++) {
-            for (int j=i+1; j<pokerHand.size(); j++) {
-                if (pokerHand.get(i).getRank() == pokerHand.get(j).getRank()) {
-                    if (rankToOccurrences.containsKey(pokerHand.get(i).getRank())) {
-                        Integer oldOccurrenceValue = rankToOccurrences.get(pokerHand.get(i).getRank());
-                        rankToOccurrences.put(pokerHand.get(i).getRank(), oldOccurrenceValue + 1);
+        for (int i=0; i<cards.size(); i++) {
+            for (int j=i+1; j<cards.size(); j++) {
+                if (cards.get(i).getRank() == cards.get(j).getRank()) {
+                    if (rankToOccurrences.containsKey(cards.get(i).getRank())) {
+                        Integer oldOccurrenceValue = rankToOccurrences.get(cards.get(i).getRank());
+                        rankToOccurrences.put(cards.get(i).getRank(), oldOccurrenceValue + 1);
                     }
                     else {
-                        rankToOccurrences.put(pokerHand.get(i).getRank(), 2);
+                        rankToOccurrences.put(cards.get(i).getRank(), 2);
                     }
                 }
             }
@@ -144,19 +166,19 @@ public class PokerHand {
         return rankToOccurrences;
     }
 
-    public Map<Suit, Integer> getSuitToOccurrencesMap() {
-        Map<Suit, Integer> suitToOccurrences = new HashMap<>();
+    public Map<Suits, Integer> getSuitToOccurrencesMap() {
+        Map<Suits, Integer> suitToOccurrences = new HashMap<>();
 
         //populate map with number of occurrences for each rank
-        for (int i=0; i<pokerHand.size(); i++) {
-            for (int j=i+1; j<pokerHand.size(); j++) {
-                if (pokerHand.get(i).getSuit() == pokerHand.get(j).getSuit()) {
-                    if (suitToOccurrences.containsKey(pokerHand.get(i).getSuit())) {
-                        Integer oldOccurrenceValue = suitToOccurrences.get(pokerHand.get(i).getSuit());
-                        suitToOccurrences.put(pokerHand.get(i).getSuit(), oldOccurrenceValue + 1);
+        for (int i=0; i<cards.size(); i++) {
+            for (int j=i+1; j<cards.size(); j++) {
+                if (cards.get(i).getSuit() == cards.get(j).getSuit()) {
+                    if (suitToOccurrences.containsKey(cards.get(i).getSuit())) {
+                        Integer oldOccurrenceValue = suitToOccurrences.get(cards.get(i).getSuit());
+                        suitToOccurrences.put(cards.get(i).getSuit(), oldOccurrenceValue + 1);
                     }
                     else {
-                        suitToOccurrences.put(pokerHand.get(i).getSuit(), 2);
+                        suitToOccurrences.put(cards.get(i).getSuit(), 2);
                     }
                 }
             }
@@ -166,30 +188,34 @@ public class PokerHand {
     }
 
     public void sortHandByRank() {
-        for (int i = 0; i < pokerHand.size()-1; i++) {
+        for (int i = 0; i < cards.size()-1; i++) {
 
             int min_idx = i;
-            for (int j = i+1; j < pokerHand.size(); j++) {
-                if (pokerHand.get(j).getRank().getNumericalRepresentation() <
-                        pokerHand.get(min_idx).getRank().getNumericalRepresentation()) {
+            for (int j = i+1; j < cards.size(); j++) {
+                if (cards.get(j).getRank().getNumericalRepresentation() <
+                        cards.get(min_idx).getRank().getNumericalRepresentation()) {
                     min_idx = j;
                 }
             }
 
-            Card temp = pokerHand.get(min_idx);
-            pokerHand.set(min_idx, pokerHand.get(i));
-            pokerHand.set(i, temp);
+            Card temp = cards.get(min_idx);
+            cards.set(min_idx, cards.get(i));
+            cards.set(i, temp);
         }
     }
 
     public void checkValidInput() {
-        if (pokerHand.size() > numberOfCardsAllowedPerHand) {
+        if (cards.size() > numberOfCardsAllowedPerHand) {
             System.out.println("Too many cards per hand...");
             System.exit(1);
         }
-        else if (pokerHand.size() < numberOfCardsAllowedPerHand) {
+        else if (cards.size() < numberOfCardsAllowedPerHand) {
             System.out.println("Too few cards per hand...");
             System.exit(1);
         }
     }
+
+//    public void clear() {
+//        cards.clear();
+//    }
 }

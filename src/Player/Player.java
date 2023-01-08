@@ -7,13 +7,11 @@ import java.util.*;
 
 public class Player {
     private final Integer playerId;
-    private final PokerHand currentHand;
+    private PokerHand currentHand;
 
     public Player(Integer playerId, String currentHand) {
         this.playerId = playerId;
         this.currentHand = new PokerHand(stringToCardList(currentHand));
-
-        System.out.println(this.currentHand.determineHandType().toString());
     }
 
     public Integer getPlayerId() {
@@ -22,6 +20,10 @@ public class Player {
 
     public PokerHand getCurrentHand() {
         return currentHand;
+    }
+
+    public void setCurrentHand(PokerHand currentHand) {
+        this.currentHand = currentHand;
     }
 
     public List<Card> stringToCardList(String pokerHand) {

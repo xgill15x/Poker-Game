@@ -1,6 +1,6 @@
 package Card;
 
-public enum Suit {
+public enum Suits {
     HEARTS("h"),
     DIAMONDS("d"),
     SPADES("s"),
@@ -8,7 +8,7 @@ public enum Suit {
 
     private final String letterRepresentation;
 
-    Suit(String letterRepresentation) {
+    Suits(String letterRepresentation) {
         this.letterRepresentation = letterRepresentation;
     }
 
