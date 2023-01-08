@@ -3,42 +3,25 @@ package Card;
 import java.util.*;
 
 public class Card {
-    private final Suits suit;
     private final Ranks rank;
+    private final Suits suit;
 
     private static Set<String> takenCards = new HashSet<>();
 
     public Card(String suit, String rank) {
-        this.suit = stringToSuit(suit);
         this.rank = stringToRank(rank);
+        this.suit = stringToSuit(suit);
 
         String cardInCharacterRepresentation = this.rank.toString().concat(this.suit.toString());
-        if (takenCards.contains(cardInCharacterRepresentation)) {
-            System.out.println("Card: " + this.rank.toString() + this.suit.toString() + " has already been dealt...");
-        }
-        else {
-            takenCards.add(cardInCharacterRepresentation);
-        }
-    }
-
-    public Suits getSuit() {
-        return suit;
+        checkCardValidity(cardInCharacterRepresentation);
     }
 
     public Ranks getRank() {
         return rank;
     }
 
-    public Suits stringToSuit(String cardSuit) {
-        for (Suits suit : Suits.values()) {
-            if (suit.toString().equals(cardSuit)) {
-                return suit;
-            }
-        }
-
-        System.out.println("One or more suits/ranks do not exist...");
-        System.exit(1);
-        return null;
+    public Suits getSuit() {
+        return suit;
     }
 
     public Ranks stringToRank(String cardRank) {
@@ -48,8 +31,30 @@ public class Card {
             }
         }
 
-        System.out.println("One or more suit/ranks do not exist...");
+        System.out.println("Card rank:" + cardRank + " does not exist...");
         System.exit(1);
         return null;
+    }
+
+    public Suits stringToSuit(String cardSuit) {
+        for (Suits suit : Suits.values()) {
+            if (suit.toString().equals(cardSuit)) {
+                return suit;
+            }
+        }
+
+        System.out.println("Card suit:" + cardSuit + " does not exist...");
+        System.exit(1);
+        return null;
+    }
+
+    public void checkCardValidity(String cardInCharacterRepresentation) {
+        if (takenCards.contains(cardInCharacterRepresentation)) {
+            System.out.println("Card: " + this.rank.toString() + this.suit.toString() + " has already been dealt...");
+            System.exit(1);
+        }
+        else {
+            takenCards.add(cardInCharacterRepresentation);
+        }
     }
 }

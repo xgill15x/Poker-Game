@@ -10,13 +10,11 @@ public class PokerJudge {
     private List<Player> players;
 
     private List<Player> straightFlushPlayers = new ArrayList<>();
-    private List<Player> threeOfAKindPlayers = new ArrayList<>();;
-    private List<Player> straightPlayers = new ArrayList<>();;
-    private List<Player> flushPlayers = new ArrayList<>();;
-    private List<Player> pairPlayers = new ArrayList<>();;
-    private List<Player> highCardPlayers = new ArrayList<>();;
-
-//    private static Integer numberOfPlayers = 0;
+    private List<Player> threeOfAKindPlayers = new ArrayList<>();
+    private List<Player> straightPlayers = new ArrayList<>();
+    private List<Player> flushPlayers = new ArrayList<>();
+    private List<Player> pairPlayers = new ArrayList<>();
+    private List<Player> highCardPlayers = new ArrayList<>();
 
     public PokerJudge(List<Player> players) {
         this.players = players;
@@ -43,10 +41,6 @@ public class PokerJudge {
                     break;
             }
         }
-
-//        numberOfPlayers = straightFlushPlayers.size() + threeOfAKindPlayers.size() +
-//                          straightPlayers.size() + flushPlayers.size() +
-//                          pairPlayers.size() + highCardPlayers.size();
     }
 
     public List<Player> getWinners() {
@@ -56,7 +50,8 @@ public class PokerJudge {
                     if (flushPlayers.isEmpty()) {
                         if (pairPlayers.isEmpty()) {
                             if (highCardPlayers.isEmpty()) {
-
+                                System.out.println("A fatal error has occurred...");
+                                System.exit(1);
                             }
                             return players;
                         }
@@ -72,12 +67,12 @@ public class PokerJudge {
     }
 
     private List<Player> breakTiesAndGetWinner(List<Player> typeOfPlayers) {
-        /*
-        * For all straight-flush players, compare their highest cards to determine a winner.
-        * In case of a tie, move on to the second highest, then third ...
-        * */
         List<Player> winners = new ArrayList<>();
 
+        /*
+         * For all straight-flush players, compare their highest cards to determine a winner.
+         * In case of a tie, move on to the second highest, then third ...
+        */
         for (int i=players.get(0).getCurrentHand().getCards().size()-1; i>-1; i--) {
             Integer largestRank = 0;
             for (Player player : typeOfPlayers) {
@@ -101,29 +96,21 @@ public class PokerJudge {
                 winners.clear();
             }
         }
-
         return winners;
     }
 
     private List<Player> breakPairTiesAndGetWinner(List<Player> typeOfPlayers) {
-        Integer nOfAKind = 0;
 
         List<Player> winners = new ArrayList<>();
         Integer largestRank = 0;
 
-        if (typeOfPlayers == pairPlayers) {
-            nOfAKind = 2;
-        }
-        else if (typeOfPlayers == threeOfAKindPlayers) {
-            nOfAKind = 3;
-        }
-
+        //retrieve the pair value for all pairPlayers and return the player with the highest pair value
         for (Player player : typeOfPlayers) {
             Map<Ranks, Integer> rankToOccurrenceMap = player.getCurrentHand().getRankToOccurrencesMap();
             PokerHand significantCards = new PokerHand();
 
             for (Card card : player.getCurrentHand().getCards()) {
-                if (rankToOccurrenceMap.get(card.getRank()) == nOfAKind) {
+                if (rankToOccurrenceMap.get(card.getRank()) == 2) {
                     significantCards.addCard(card);
                     break;
                 }
@@ -149,18 +136,15 @@ public class PokerJudge {
                 PokerHand sideCards = new PokerHand();
 
                 for (Card card : player.getCurrentHand().getCards()) {
-                    if (rankToOccurrenceMap.get(card.getRank()) != nOfAKind) {
+                    if (rankToOccurrenceMap.get(card.getRank()) != 2) {
                         sideCards.addCard(card);
                     }
                 }
                 sideCards.sortHandByRank();
                 player.getCurrentHand().setCards(sideCards.getCards());
             }
-
             return breakTiesAndGetWinner(typeOfPlayers);
         }
         return winners;
     }
-
-
 }

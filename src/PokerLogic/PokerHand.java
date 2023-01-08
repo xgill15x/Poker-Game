@@ -9,11 +9,11 @@ public class PokerHand {
     private static final Integer numberOfCardsAllowedPerHand = 3;
     private List<Card> cards = new ArrayList<>();
 
-    public PokerHand() {};
+    public PokerHand() {}
 
     public PokerHand(List<Card> pokerHand) {
         this.cards = pokerHand;
-        checkValidInput();
+        checkHandValidity();
         sortHandByRank();
     }
 
@@ -31,10 +31,6 @@ public class PokerHand {
 
     public void addCard(Card card) {
         this.cards.add(card);
-    }
-
-    public Integer getNumberOfCardsAllowedPerHand() {
-        return numberOfCardsAllowedPerHand;
     }
 
     public boolean isPair() {
@@ -59,7 +55,7 @@ public class PokerHand {
         Integer numberOfFlushes = 0;
 
         for (Suits suit : suitToOccurrencesMap.keySet()) {
-            if (suitToOccurrencesMap.get(suit)-1 == cards.size()) {
+            if (suitToOccurrencesMap.get(suit) == cards.size()) {
                 numberOfFlushes += 1;
             }
         }
@@ -105,7 +101,7 @@ public class PokerHand {
 
         //check to see which ranks have an occurrence of 3
         for (Ranks rank : rankToOccurrencesMap.keySet()) {
-            if (rankToOccurrencesMap.get(rank)-1 == 3) {
+            if (rankToOccurrencesMap.get(rank) == 3) {
                 numberOfThreeOfAKinds += 1;
             }
         }
@@ -149,17 +145,13 @@ public class PokerHand {
         Map<Ranks, Integer> rankToOccurrences = new HashMap<>();
 
         //populate map with number of occurrences for each rank
-        for (int i=0; i<cards.size(); i++) {
-            for (int j=i+1; j<cards.size(); j++) {
-                if (cards.get(i).getRank() == cards.get(j).getRank()) {
-                    if (rankToOccurrences.containsKey(cards.get(i).getRank())) {
-                        Integer oldOccurrenceValue = rankToOccurrences.get(cards.get(i).getRank());
-                        rankToOccurrences.put(cards.get(i).getRank(), oldOccurrenceValue + 1);
-                    }
-                    else {
-                        rankToOccurrences.put(cards.get(i).getRank(), 2);
-                    }
-                }
+        for (Card card : cards) {
+            if (rankToOccurrences.containsKey(card.getRank())) {
+                Integer oldOccurrenceValue = rankToOccurrences.get(card.getRank());
+                rankToOccurrences.put(card.getRank(), oldOccurrenceValue + 1);
+            }
+            else {
+                rankToOccurrences.put(card.getRank(), 1);
             }
         }
 
@@ -169,18 +161,14 @@ public class PokerHand {
     public Map<Suits, Integer> getSuitToOccurrencesMap() {
         Map<Suits, Integer> suitToOccurrences = new HashMap<>();
 
-        //populate map with number of occurrences for each rank
-        for (int i=0; i<cards.size(); i++) {
-            for (int j=i+1; j<cards.size(); j++) {
-                if (cards.get(i).getSuit() == cards.get(j).getSuit()) {
-                    if (suitToOccurrences.containsKey(cards.get(i).getSuit())) {
-                        Integer oldOccurrenceValue = suitToOccurrences.get(cards.get(i).getSuit());
-                        suitToOccurrences.put(cards.get(i).getSuit(), oldOccurrenceValue + 1);
-                    }
-                    else {
-                        suitToOccurrences.put(cards.get(i).getSuit(), 2);
-                    }
-                }
+        //populate map with number of occurrences for each suit
+        for (Card card : cards) {
+            if (suitToOccurrences.containsKey(card.getSuit())) {
+                Integer oldOccurrenceValue = suitToOccurrences.get(card.getSuit());
+                suitToOccurrences.put(card.getSuit(), oldOccurrenceValue + 1);
+            }
+            else {
+                suitToOccurrences.put(card.getSuit(), 1);
             }
         }
 
@@ -188,6 +176,8 @@ public class PokerHand {
     }
 
     public void sortHandByRank() {
+
+        //selection sort used for small array sizes
         for (int i = 0; i < cards.size()-1; i++) {
 
             int min_idx = i;
@@ -204,7 +194,7 @@ public class PokerHand {
         }
     }
 
-    public void checkValidInput() {
+    public void checkHandValidity() {
         if (cards.size() > numberOfCardsAllowedPerHand) {
             System.out.println("Too many cards per hand...");
             System.exit(1);
@@ -214,8 +204,4 @@ public class PokerHand {
             System.exit(1);
         }
     }
-
-//    public void clear() {
-//        cards.clear();
-//    }
 }
