@@ -31,7 +31,6 @@ public class Poker {
             String playerHand = playerInfo[1];
             players.add(new Player(playerId, playerHand));
         }
-
         scanner.close();
     }
 
@@ -40,7 +39,7 @@ public class Poker {
 
         StringBuilder winnersMessage = new StringBuilder();
         for (Player player : pokerJudge.getWinners()) {
-            winnersMessage.append(player.getPlayerId().toString() + " ");
+            winnersMessage.append(player.getPlayerId().toString()).append(" ");
         }
 
         System.out.println(winnersMessage);

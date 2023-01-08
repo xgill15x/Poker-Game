@@ -6,7 +6,7 @@ public class Card {
     private final Ranks rank;
     private final Suits suit;
 
-    private static Set<String> takenCards = new HashSet<>();
+    private static final Set<String> takenCards = new HashSet<>();
 
     public Card(String suit, String rank) {
         this.rank = stringToRank(rank);
@@ -50,7 +50,7 @@ public class Card {
 
     public void checkCardValidity(String cardInCharacterRepresentation) {
         if (takenCards.contains(cardInCharacterRepresentation)) {
-            System.out.println("Card: " + this.rank.toString() + this.suit.toString() + " has already been dealt...");
+            System.out.println("Card:" + this.rank.toString() + this.suit.toString() + " has already been dealt...");
             System.exit(1);
         }
         else {

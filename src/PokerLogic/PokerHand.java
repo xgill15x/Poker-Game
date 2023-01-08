@@ -35,7 +35,7 @@ public class PokerHand {
 
     public boolean isPair() {
         Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
-        Integer numberOfPairs = 0;
+        int numberOfPairs = 0;
 
         //check to see which ranks have an occurrence of 2
         for (Ranks rank : rankToOccurrencesMap.keySet()) {
@@ -44,15 +44,12 @@ public class PokerHand {
             }
         }
 
-        if (numberOfPairs == 1) {
-            return true;
-        }
-        return false;
+        return numberOfPairs == 1;
     }
 
     public boolean isFlush() {
         Map<Suits, Integer> suitToOccurrencesMap = getSuitToOccurrencesMap();
-        Integer numberOfFlushes = 0;
+        int numberOfFlushes = 0;
 
         for (Suits suit : suitToOccurrencesMap.keySet()) {
             if (suitToOccurrencesMap.get(suit) == cards.size()) {
@@ -60,10 +57,8 @@ public class PokerHand {
             }
         }
 
-        if (numberOfFlushes == 1) { //there should only ever be a single flush
-            return true;
-        }
-        return false;
+        //there should only ever be a single flush
+        return numberOfFlushes == 1;
     }
 
     public boolean isStraight() {
@@ -72,11 +67,12 @@ public class PokerHand {
         for (int i=0; i<cards.size(); i++) {
             if (cards.get(0).getRank().getNumericalRepresentation() != cards.get(i).getRank().getNumericalRepresentation() - i) {
                 isStraight = false;
+                break;
             }
         }
 
         //If there is an A-rank card, change its numerical value to 1 to see if it forms a straight
-        if (cards.get(cards.size()-1).getRank() == Ranks.ACE && isStraight == false) {
+        if (cards.get(cards.size()-1).getRank() == Ranks.ACE && !isStraight) {
             Ranks.ACE.setNumericalRepresentation(1);
             sortHandByRank();
 
@@ -97,7 +93,7 @@ public class PokerHand {
 
     public boolean isThreeOfAKind() {
         Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
-        Integer numberOfThreeOfAKinds = 0;
+        int numberOfThreeOfAKinds = 0;
 
         //check to see which ranks have an occurrence of 3
         for (Ranks rank : rankToOccurrencesMap.keySet()) {
@@ -106,17 +102,11 @@ public class PokerHand {
             }
         }
 
-        if (numberOfThreeOfAKinds == 1) {
-            return true;
-        }
-        return false;
+        return numberOfThreeOfAKinds == 1;
     }
 
     public boolean isStraightFlush() {
-        if (isStraight() && isFlush()) {
-            return true;
-        }
-        return false;
+        return isStraight() && isFlush();
     }
 
     public HandTypes determineHandType() {

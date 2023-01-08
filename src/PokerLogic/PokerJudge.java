@@ -7,14 +7,14 @@ import java.util.*;
 
 public class PokerJudge {
 
-    private List<Player> players;
+    private final List<Player> players;
 
-    private List<Player> straightFlushPlayers = new ArrayList<>();
-    private List<Player> threeOfAKindPlayers = new ArrayList<>();
-    private List<Player> straightPlayers = new ArrayList<>();
-    private List<Player> flushPlayers = new ArrayList<>();
-    private List<Player> pairPlayers = new ArrayList<>();
-    private List<Player> highCardPlayers = new ArrayList<>();
+    private final List<Player> straightFlushPlayers = new ArrayList<>();
+    private final List<Player> threeOfAKindPlayers = new ArrayList<>();
+    private final List<Player> straightPlayers = new ArrayList<>();
+    private final List<Player> flushPlayers = new ArrayList<>();
+    private final List<Player> pairPlayers = new ArrayList<>();
+    private final List<Player> highCardPlayers = new ArrayList<>();
 
     public PokerJudge(List<Player> players) {
         this.players = players;
@@ -83,7 +83,7 @@ public class PokerJudge {
                     largestRank = rankOfCardBeingCompared;
                     winners.add(player);
                 }
-                else if (rankOfCardBeingCompared == largestRank) {
+                else if (rankOfCardBeingCompared.equals(largestRank)) {
                     winners.add(player);
                 }
             }
@@ -122,7 +122,7 @@ public class PokerJudge {
                 largestRank = pairRank;
                 winners.add(player);
             }
-            else if (pairRank == largestRank) {
+            else if (pairRank.equals(largestRank)) {
                 winners.add(player);
             }
         }
