@@ -17,19 +17,31 @@ public class Poker {
         Scanner scanner = new Scanner(System.in);
 
         //get number of players
-         numberOfPlayers = Integer.parseInt(scanner.nextLine());
-         if (numberOfPlayers < 1 || numberOfPlayers > 8) {
-             System.out.println("Number of players is invalid. Please confirm it's between 1 and 8...");
-             System.exit(1);
-         }
+        try {
+            numberOfPlayers = Integer.parseInt(scanner.nextLine().trim());
+        } catch (Exception e) {
+            System.out.println("'Number of players' contains invalid characters...");
+            System.exit(1);
+        }
+
+        if (numberOfPlayers < 1 || numberOfPlayers > 8) {
+            System.out.println("'Number of players' is invalid. Please confirm it's between 1 and 8...");
+            System.exit(1);
+        }
 
         //populate playerIds and player hands
-        for (int i = 0; i < numberOfPlayers; i++) {
-            String[] playerInfo = scanner.nextLine().split(" ", 2);
+        for (int i=0; i<numberOfPlayers; i++) {
+            String[] playerInfo = scanner.nextLine().trim().split(" ", 2);
 
-            Integer playerId = Integer.parseInt(playerInfo[0]);
-            String playerHand = playerInfo[1];
-            players.add(new Player(playerId, playerHand));
+            try {
+                Integer playerId = Integer.parseInt(playerInfo[0].trim());
+                String playerHand = playerInfo[1].trim();
+                players.add(new Player(playerId, playerHand));
+            } catch (Exception e) {
+                System.out.println("'Player ID' contains invalid characters...");
+                System.exit(1);
+            }
+
         }
         scanner.close();
     }

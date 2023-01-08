@@ -7,13 +7,14 @@ import java.util.*;
 public class PokerHand {
 
     private static final Integer numberOfCardsAllowedPerHand = 3;
+
     private List<Card> cards = new ArrayList<>();
 
     public PokerHand() {}
 
     public PokerHand(List<Card> pokerHand) {
         this.cards = pokerHand;
-        checkHandValidity();
+        checkNumberOfCardsValidity();
         sortHandByRank();
     }
 
@@ -29,8 +30,30 @@ public class PokerHand {
         return cards.get(i);
     }
 
-    public void addCard(Card card) {
+    public void appendCard(Card card) {
         this.cards.add(card);
+    }
+
+    public HandTypes determineHandType() {
+        HandTypes handType = HandTypes.HIGH_CARD;
+
+        if (isPair()) {
+            handType = HandTypes.PAIR;
+        }
+        if (isFlush()) {
+            handType = HandTypes.FLUSH;
+        }
+        if (isStraight()) {
+            handType = HandTypes.STRAIGHT;
+        }
+        if (isThreeOfAKind()) {
+            handType = HandTypes.THREE_OF_A_KIND;
+        }
+        if (isStraightFlush()) {
+            handType = HandTypes.STRAIGHT_FLUSH;
+        }
+
+        return handType;
     }
 
     public boolean isPair() {
@@ -109,28 +132,6 @@ public class PokerHand {
         return isStraight() && isFlush();
     }
 
-    public HandTypes determineHandType() {
-        HandTypes handType = HandTypes.HIGH_CARD;
-
-        if (isPair()) {
-            handType = HandTypes.PAIR;
-        }
-        if (isFlush()) {
-            handType = HandTypes.FLUSH;
-        }
-        if (isStraight()) {
-            handType = HandTypes.STRAIGHT;
-        }
-        if (isThreeOfAKind()) {
-            handType = HandTypes.THREE_OF_A_KIND;
-        }
-        if (isStraightFlush()) {
-            handType = HandTypes.STRAIGHT_FLUSH;
-        }
-
-        return handType;
-    }
-
     public Map<Ranks, Integer> getRankToOccurrencesMap() {
         Map<Ranks, Integer> rankToOccurrences = new HashMap<>();
 
@@ -168,10 +169,10 @@ public class PokerHand {
     public void sortHandByRank() {
 
         //selection sort used for small array sizes
-        for (int i = 0; i < cards.size()-1; i++) {
+        for (int i=0; i<cards.size()-1; i++) {
 
             int min_idx = i;
-            for (int j = i+1; j < cards.size(); j++) {
+            for (int j=i+1; j<cards.size(); j++) {
                 if (cards.get(j).getRank().getNumericalRepresentation() <
                         cards.get(min_idx).getRank().getNumericalRepresentation()) {
                     min_idx = j;
@@ -184,7 +185,7 @@ public class PokerHand {
         }
     }
 
-    public void checkHandValidity() {
+    public void checkNumberOfCardsValidity() {
         if (cards.size() > numberOfCardsAllowedPerHand) {
             System.out.println("Too many cards per hand...");
             System.exit(1);

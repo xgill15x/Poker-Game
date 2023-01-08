@@ -6,38 +6,50 @@ import PokerLogic.*;
 import java.util.*;
 
 public class Player {
+
     private final Integer playerId;
-    private PokerHand currentHand;
+    private final PokerHand pokerHand;
 
-    public Player(Integer playerId, String currentHand) {
+    private static final Set<Integer> takenPlayerIds = new HashSet<>();
+
+    public Player(Integer playerId, String pokerHand) {
         this.playerId = playerId;
-        this.currentHand = new PokerHand(stringToCardList(currentHand));
+        checkPlayerIdAvailability();
 
+        this.pokerHand = new PokerHand(stringToCardList(pokerHand));
     }
 
     public Integer getPlayerId() {
         return playerId;
     }
 
-    public PokerHand getCurrentHand() {
-        return currentHand;
+    public PokerHand getPokerHand() {
+        return pokerHand;
     }
 
     public List<Card> stringToCardList(String pokerHand) {
-        String[] splitPokerHand = pokerHand.split(" ");
+        String[] splitPokerHand = pokerHand.split("\\s+");
 
         List<Card> cards = new ArrayList<>();
         for (String card : splitPokerHand) {
-            if (card.length() != 2) {
+            if (card.trim().length() != 2) {
                 System.out.println("Character representations of cards should ONLY be 2 characters long...");
                 System.exit(1);
             }
             String rank = Character.toString(card.charAt(0));
             String suit = Character.toString(card.charAt(1));
-
-            cards.add(new Card(suit, rank));
+            cards.add(new Card(rank, suit));
         }
-
         return cards;
+    }
+
+    public void checkPlayerIdAvailability() {
+        if (takenPlayerIds.contains(playerId)) {
+            System.out.println("PlayerID:" + this.getPlayerId().toString() + " has already been taken...");
+            System.exit(1);
+        }
+        else {
+            takenPlayerIds.add(playerId);
+        }
     }
 }

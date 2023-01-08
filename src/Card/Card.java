@@ -8,12 +8,10 @@ public class Card {
 
     private static final Set<String> takenCards = new HashSet<>();
 
-    public Card(String suit, String rank) {
+    public Card(String rank, String suit) {
         this.rank = stringToRank(rank);
         this.suit = stringToSuit(suit);
-
-        String cardInCharacterRepresentation = this.rank.toString().concat(this.suit.toString());
-        checkCardValidity(cardInCharacterRepresentation);
+        checkCardAvailability();
     }
 
     public Ranks getRank() {
@@ -30,8 +28,8 @@ public class Card {
                 return rank;
             }
         }
-
-        System.out.println("Card rank:" + cardRank + " does not exist...");
+        //exit if rank is invalid
+        System.out.println("Card rank:" + cardRank + " is invalid...");
         System.exit(1);
         return null;
     }
@@ -42,15 +40,16 @@ public class Card {
                 return suit;
             }
         }
-
-        System.out.println("Card suit:" + cardSuit + " does not exist...");
+        //exit if suit is invalid
+        System.out.println("Card suit:" + cardSuit + " is invalid...");
         System.exit(1);
         return null;
     }
 
-    public void checkCardValidity(String cardInCharacterRepresentation) {
+    public void checkCardAvailability() {
+        String cardInCharacterRepresentation = rank.toString().concat(suit.toString());
         if (takenCards.contains(cardInCharacterRepresentation)) {
-            System.out.println("Card:" + this.rank.toString() + this.suit.toString() + " has already been dealt...");
+            System.out.println("Card:" + rank.toString() + suit.toString() + " has already been dealt...");
             System.exit(1);
         }
         else {

@@ -20,7 +20,7 @@ public class PokerJudge {
         this.players = players;
 
         for (Player player : this.players) {
-            switch (player.getCurrentHand().determineHandType()) {
+            switch (player.getPokerHand().determineHandType()) {
                 case STRAIGHT_FLUSH:
                     straightFlushPlayers.add(player);
                     break;
@@ -73,10 +73,10 @@ public class PokerJudge {
          * For all straight-flush players, compare their highest cards to determine a winner.
          * In case of a tie, move on to the second highest, then third ...
         */
-        for (int i=players.get(0).getCurrentHand().getCards().size()-1; i>-1; i--) {
+        for (int i=players.get(0).getPokerHand().getCards().size()-1; i>-1; i--) {
             Integer largestRank = 0;
             for (Player player : typeOfPlayers) {
-                Integer rankOfCardBeingCompared = player.getCurrentHand().getCardAt(i).getRank().getNumericalRepresentation();
+                Integer rankOfCardBeingCompared = player.getPokerHand().getCardAt(i).getRank().getNumericalRepresentation();
 
                 if (rankOfCardBeingCompared > largestRank) {
                     winners.clear();
@@ -96,22 +96,23 @@ public class PokerJudge {
                 winners.clear();
             }
         }
+
+        winners.sort(Comparator.comparingInt(player -> player.getPlayerId()));
         return winners;
     }
 
     private List<Player> breakPairTiesAndGetWinner(List<Player> typeOfPlayers) {
-
         List<Player> winners = new ArrayList<>();
         Integer largestRank = 0;
 
         //retrieve the pair value for all pairPlayers and return the player with the highest pair value
         for (Player player : typeOfPlayers) {
-            Map<Ranks, Integer> rankToOccurrenceMap = player.getCurrentHand().getRankToOccurrencesMap();
+            Map<Ranks, Integer> rankToOccurrenceMap = player.getPokerHand().getRankToOccurrencesMap();
             PokerHand significantCards = new PokerHand();
 
-            for (Card card : player.getCurrentHand().getCards()) {
+            for (Card card : player.getPokerHand().getCards()) {
                 if (rankToOccurrenceMap.get(card.getRank()) == 2) {
-                    significantCards.addCard(card);
+                    significantCards.appendCard(card);
                     break;
                 }
             }
@@ -130,18 +131,17 @@ public class PokerJudge {
         //If the pairs are tied, then compare kicker cards
         if (winners.size() > 1) {
             winners.clear();
-
             for (Player player : typeOfPlayers) {
-                Map<Ranks, Integer> rankToOccurrenceMap = player.getCurrentHand().getRankToOccurrencesMap();
+                Map<Ranks, Integer> rankToOccurrenceMap = player.getPokerHand().getRankToOccurrencesMap();
                 PokerHand sideCards = new PokerHand();
 
-                for (Card card : player.getCurrentHand().getCards()) {
+                for (Card card : player.getPokerHand().getCards()) {
                     if (rankToOccurrenceMap.get(card.getRank()) != 2) {
-                        sideCards.addCard(card);
+                        sideCards.appendCard(card);
                     }
                 }
                 sideCards.sortHandByRank();
-                player.getCurrentHand().setCards(sideCards.getCards());
+                player.getPokerHand().setCards(sideCards.getCards());
             }
             return breakTiesAndGetWinner(typeOfPlayers);
         }
