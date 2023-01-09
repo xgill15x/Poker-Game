@@ -9,15 +9,21 @@ public class PokerHand {
     private List<Card> cards = new ArrayList<>();
     private static final Integer numberOfCardsAllowedPerHand = 3;
 
+    private Map<Ranks, Integer> rankToOccurrencesMap;
+    private Map<Suits, Integer> suitToOccurrencesMap;
+
     public PokerHand() {}
 
     /** Creates a PokerHand with the list of Card objects provided.
      * @param  pokerHand a list of Card objects.
     */
-    public PokerHand(List<Card> pokerHand) {
-        this.cards = pokerHand;
+    public PokerHand(String pokerHand) {
+        this.cards = stringToCardList(pokerHand);
         checkNumberOfCardsValidity();
         sortHandByRank();
+
+        rankToOccurrencesMap = getRankToOccurrencesMap();
+        suitToOccurrencesMap = getSuitToOccurrencesMap();
     }
 
     /** Gets the cards in the poker hand.
@@ -78,7 +84,6 @@ public class PokerHand {
      * @return A boolean representing if the poker hand is a pair.
     */
     public boolean isPair() {
-        Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
         int numberOfPairs = 0;
 
         //check to see which ranks have an occurrence of 2
@@ -94,7 +99,6 @@ public class PokerHand {
      * @return A boolean representing if the poker hand is a flush.
     */
     public boolean isFlush() {
-        Map<Suits, Integer> suitToOccurrencesMap = getSuitToOccurrencesMap();
         int numberOfFlushes = 0;
 
         for (Suits suit : suitToOccurrencesMap.keySet()) {
@@ -141,7 +145,6 @@ public class PokerHand {
      * @return A boolean representing if the poker hand is a three-of-a-kind.
     */
     public boolean isThreeOfAKind() {
-        Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
         int numberOfThreeOfAKinds = 0;
 
         //check to see which ranks have an occurrence of 3
@@ -196,6 +199,26 @@ public class PokerHand {
             }
         }
         return suitToOccurrences;
+    }
+
+    /** Convert's cards in string form to a list of Card objects.
+     * @param pokerHand Cards in string form
+     * @return A list of Card objects.
+     */
+    public List<Card> stringToCardList(String pokerHand) {
+        String[] splitPokerHand = pokerHand.split("\\s+");
+
+        List<Card> cards = new ArrayList<>();
+        for (String card : splitPokerHand) {
+            if (card.trim().length() != 2) {
+                System.out.println("Character representations of cards should ONLY be 2 characters long...");
+                System.exit(1);
+            }
+            String rank = Character.toString(card.charAt(0));
+            String suit = Character.toString(card.charAt(1));
+            cards.add(new Card(rank, suit));
+        }
+        return cards;
     }
 
     /** Sorts the poker hand.*/

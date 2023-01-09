@@ -20,7 +20,7 @@ public class Player {
         this.playerId = playerId;
         checkPlayerIdAvailability();
 
-        this.pokerHand = new PokerHand(stringToCardList(pokerHand));
+        this.pokerHand = new PokerHand(pokerHand);
     }
 
     /** Gets the player's identification number.
@@ -35,26 +35,6 @@ public class Player {
     */
     public PokerHand getPokerHand() {
         return pokerHand;
-    }
-
-    /** Convert's cards in string form to a list of Card objects.
-     * @param pokerHand Cards in string form
-     * @return A list of Card objects.
-    */
-    public List<Card> stringToCardList(String pokerHand) {
-        String[] splitPokerHand = pokerHand.split("\\s+");
-
-        List<Card> cards = new ArrayList<>();
-        for (String card : splitPokerHand) {
-            if (card.trim().length() != 2) {
-                System.out.println("Character representations of cards should ONLY be 2 characters long...");
-                System.exit(1);
-            }
-            String rank = Character.toString(card.charAt(0));
-            String suit = Character.toString(card.charAt(1));
-            cards.add(new Card(rank, suit));
-        }
-        return cards;
     }
 
     /** Checks the takenPlayersIds set to see if the player identification number is already taken.*/

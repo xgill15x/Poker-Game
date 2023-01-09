@@ -3,6 +3,7 @@ package Card;
 import java.util.*;
 
 public class Card {
+
     private final Ranks rank;
     private final Suits suit;
 
