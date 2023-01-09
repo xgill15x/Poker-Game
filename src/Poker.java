@@ -13,6 +13,18 @@ public class Poker {
         determineWinners();
     }
 
+    /** Determines the winner of game*/
+    public static void determineWinners() {
+        PokerJudge pokerJudge = new PokerJudge(players);
+        StringBuilder winnersMessage = new StringBuilder();
+
+        for (Player player : pokerJudge.getWinners()) {
+            winnersMessage.append(player.getPlayerId().toString()).append(" ");
+        }
+        System.out.println(winnersMessage.toString().trim());
+    }
+
+    /** Gets input, and populates player hands*/
     public static void getPokerGameData() {
         Scanner scanner = new Scanner(System.in);
 
@@ -42,15 +54,5 @@ public class Poker {
             }
         }
         scanner.close();
-    }
-
-    public static void determineWinners() {
-        PokerJudge pokerJudge = new PokerJudge(players);
-        StringBuilder winnersMessage = new StringBuilder();
-
-        for (Player player : pokerJudge.getWinners()) {
-            winnersMessage.append(player.getPlayerId().toString()).append(" ");
-        }
-        System.out.println(winnersMessage.toString().trim());
     }
 }
