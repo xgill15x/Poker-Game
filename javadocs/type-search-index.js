@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"Card","l":"Card"},{"p":"PokerLogic","l":"HandTypes"},{"p":"Player","l":"Player"},{"p":"<Unnamed>","l":"Poker"},{"p":"PokerLogic","l":"PokerHand"},{"p":"PokerLogic","l":"PokerJudge"},{"p":"Card","l":"Ranks"},{"p":"Card","l":"Suits"}]
