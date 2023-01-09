@@ -84,7 +84,7 @@ public class PokerJudge {
          * For all straight-flush players, compare their highest cards to determine a winner.
          * In case of a tie, move on to the second highest, then third ...
         */
-        for (int i=players.get(0).getPokerHand().getCards().size()-1; i>-1; i--) {
+        for (int i=typeOfPlayers.get(0).getPokerHand().getCards().size()-1; i>-1; i--) {
             Integer largestRank = 0;
             for (Player player : typeOfPlayers) {
                 Integer rankOfCardBeingCompared = player.getPokerHand().getCardAt(i).getRank().getNumericalRepresentation();
@@ -104,7 +104,13 @@ public class PokerJudge {
             }
 
             if (i > 0) {
-                winners.clear();
+                Set<Player> losers = new HashSet<>();
+                for (Player player : players) {
+                    if (!winners.contains(player)) {
+                        losers.add(player);
+                    }
+                }
+                typeOfPlayers.removeAll(losers);
             }
         }
 
