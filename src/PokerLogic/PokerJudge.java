@@ -18,7 +18,6 @@ public class PokerJudge {
 
     /** Creates a Judge that will decide a winner between all the players.
      * @param players A list of all participating players.
-     * @return A PokerJudge object.
     */
     public PokerJudge(List<Player> players) {
         this.players = players;
@@ -151,7 +150,14 @@ public class PokerJudge {
 
         //If the pairs are tied, then compare kicker cards (algo made to also accommodate hands larger than 3 cards)
         if (winners.size() > 1) {
-            winners.clear();
+            Set<Player> losers = new HashSet<>();
+            for (Player player : players) {
+                if (!winners.contains(player)) {
+                    losers.add(player);
+                }
+            }
+            typeOfPlayers.removeAll(losers);
+
             for (Player player : typeOfPlayers) {
                 Map<Ranks, Integer> rankToOccurrenceMap = player.getPokerHand().getRankToOccurrencesMap();
                 PokerHand sideCards = new PokerHand();

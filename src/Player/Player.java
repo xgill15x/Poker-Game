@@ -12,7 +12,7 @@ public class Player {
 
     private static final Set<Integer> takenPlayerIds = new HashSet<>();
 
-    /** Sets the numerical representation of a card's rank. Currently only used for the ACE case.
+    /** Creates a Player with the specified player identification number and poker hand.
      * @param playerId The player's identification number in integer form.
      * @param pokerHand The player's cards in a string form.
     */
@@ -39,7 +39,7 @@ public class Player {
 
     /** Convert's cards in string form to a list of Card objects.
      * @param pokerHand Cards in string form
-     * @return An Integer containing the player's identification number.
+     * @return A list of Card objects.
     */
     public List<Card> stringToCardList(String pokerHand) {
         String[] splitPokerHand = pokerHand.split("\\s+");
@@ -57,9 +57,7 @@ public class Player {
         return cards;
     }
 
-    /** Checks the takenPlayersIds set to see if the player identification number is already taken.
-     * @return Nothing if the player's identification number is valid, but exits with status 1 if the player identification number taken.
-    */
+    /** Checks the takenPlayersIds set to see if the player identification number is already taken.*/
     public void checkPlayerIdAvailability() {
         if (takenPlayerIds.contains(playerId)) {
             System.out.println("PlayerID:" + this.getPlayerId().toString() + " has already been taken...");

@@ -36,8 +36,8 @@ public enum Ranks {
     }
 
     /** Sets the numerical representation of a card's rank. Currently only used for the ACE case.
-     * @return Nothing, the numerical representation has been set.
-    */
+     * @param numericalRepresentation Integer value to be set for the rank.
+    * */
     public void setNumericalRepresentation(Integer numericalRepresentation) {
         this.numericalRepresentation = numericalRepresentation;
     }

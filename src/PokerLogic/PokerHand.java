@@ -13,7 +13,6 @@ public class PokerHand {
 
     /** Creates a PokerHand with the list of Card objects provided.
      * @param  pokerHand a list of Card objects.
-     * @return A PokerHand Object containing the list of Card objects.
     */
     public PokerHand(List<Card> pokerHand) {
         this.cards = pokerHand;
@@ -29,7 +28,7 @@ public class PokerHand {
     }
 
     /** Sets the cards in the poker hand.
-     * @return Nothing, the cards have been set.
+     * @param cards A list of Card objects that represents the hand to be set.
     */
     public void setCards(List<Card> cards) {
         this.cards = cards;
@@ -45,7 +44,6 @@ public class PokerHand {
 
     /** Appends the card to the poker hand.
      * @param card The Card object to be appended.
-     * @return Nothing, the card has been appended.
     */
     public void appendCard(Card card) {
         this.cards.add(card);
@@ -200,9 +198,7 @@ public class PokerHand {
         return suitToOccurrences;
     }
 
-    /** Sorts the poker hand.
-     * @return Nothing, the poker hand has been sorted..
-    */
+    /** Sorts the poker hand.*/
     public void sortHandByRank() {
         //selection sort used for small array sizes
         for (int i=0; i<cards.size()-1; i++) {
@@ -221,9 +217,7 @@ public class PokerHand {
         }
     }
 
-    /** Checks to see if the number of cards in the poker hand match with the specified amount set for the game.
-     * @return Nothing if the number of cards is valid, but exits with status 1 if the number of cards do not match the specified amount.
-    */
+    /** Checks to see if the number of cards in the poker hand match with the specified amount set for the game.*/
     public void checkNumberOfCardsValidity() {
         if (cards.size() > numberOfCardsAllowedPerHand) {
             System.out.println("Too many cards per hand...");
