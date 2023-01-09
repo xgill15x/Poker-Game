@@ -11,28 +11,49 @@ public class PokerHand {
 
     public PokerHand() {}
 
+    /** Creates a PokerHand with the list of Card objects provided.
+     * @param  pokerHand a list of Card objects.
+     * @return A PokerHand Object containing the list of Card objects.
+    */
     public PokerHand(List<Card> pokerHand) {
         this.cards = pokerHand;
         checkNumberOfCardsValidity();
         sortHandByRank();
     }
 
+    /** Gets the cards in the poker hand.
+     * @return A list of Card objects.
+    */
     public List<Card> getCards() {
         return cards;
     }
 
+    /** Sets the cards in the poker hand.
+     * @return Nothing, the cards have been set.
+    */
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 
+    /** Gets the card at index i in the poker hand.
+     * @param i The index of the specified card.
+     * @return The Card object at index i.
+    */
     public Card getCardAt(int i) {
         return cards.get(i);
     }
 
+    /** Appends the card to the poker hand.
+     * @param card The Card object to be appended.
+     * @return Nothing, the card has been appended.
+    */
     public void appendCard(Card card) {
         this.cards.add(card);
     }
 
+    /** Determines the best hand that can be formed with 3 ca.
+     * @return A HandType object representing the type of hand.
+    */
     public HandTypes determineHandType() {
         HandTypes handType = HandTypes.HIGH_CARD;
 
@@ -55,6 +76,9 @@ public class PokerHand {
         return handType;
     }
 
+    /** Checks to see if the poker hand is a pair.
+     * @return A boolean representing if the poker hand is a pair.
+    */
     public boolean isPair() {
         Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
         int numberOfPairs = 0;
@@ -68,6 +92,9 @@ public class PokerHand {
         return numberOfPairs == 1;
     }
 
+    /** Checks to see if the poker hand is a flush.
+     * @return A boolean representing if the poker hand is a flush.
+    */
     public boolean isFlush() {
         Map<Suits, Integer> suitToOccurrencesMap = getSuitToOccurrencesMap();
         int numberOfFlushes = 0;
@@ -80,6 +107,9 @@ public class PokerHand {
         return numberOfFlushes == 1;
     }
 
+    /** Checks to see if the poker hand is a straight.
+     * @return A boolean representing if the poker hand is a straight.
+    */
     public boolean isStraight() {
         boolean isStraight = true;
 
@@ -109,6 +139,9 @@ public class PokerHand {
         return isStraight;
     }
 
+    /** Checks to see if the poker hand is a three-of-a-kind.
+     * @return A boolean representing if the poker hand is a three-of-a-kind.
+    */
     public boolean isThreeOfAKind() {
         Map<Ranks, Integer> rankToOccurrencesMap = getRankToOccurrencesMap();
         int numberOfThreeOfAKinds = 0;
@@ -122,10 +155,16 @@ public class PokerHand {
         return numberOfThreeOfAKinds == 1;
     }
 
+    /** Checks to see if the poker hand is a straight-flush.
+     * @return A boolean representing if the poker hand is a straight-flush.
+    */
     public boolean isStraightFlush() {
         return isStraight() && isFlush();
     }
 
+    /** Creates a Map that pairs up every unique rank found in the poker hand to the number of times it occurs.
+     * @return A Map object representing rank to occurrences.
+    */
     public Map<Ranks, Integer> getRankToOccurrencesMap() {
         Map<Ranks, Integer> rankToOccurrences = new HashMap<>();
 
@@ -142,6 +181,9 @@ public class PokerHand {
         return rankToOccurrences;
     }
 
+    /** Creates a Map that pairs up every unique suit found in the poker hand to the number of times it occurs.
+     * @return A Map object representing suit to occurrences.
+    */
     public Map<Suits, Integer> getSuitToOccurrencesMap() {
         Map<Suits, Integer> suitToOccurrences = new HashMap<>();
 
@@ -158,8 +200,10 @@ public class PokerHand {
         return suitToOccurrences;
     }
 
+    /** Sorts the poker hand.
+     * @return Nothing, the poker hand has been sorted..
+    */
     public void sortHandByRank() {
-
         //selection sort used for small array sizes
         for (int i=0; i<cards.size()-1; i++) {
 
@@ -177,6 +221,9 @@ public class PokerHand {
         }
     }
 
+    /** Checks to see if the number of cards in the poker hand match with the specified amount set for the game.
+     * @return Nothing if the number of cards is valid, but exits with status 1 if the number of cards do not match the specified amount.
+    */
     public void checkNumberOfCardsValidity() {
         if (cards.size() > numberOfCardsAllowedPerHand) {
             System.out.println("Too many cards per hand...");

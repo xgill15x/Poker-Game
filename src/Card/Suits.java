@@ -8,6 +8,10 @@ public enum Suits {
 
     private final String letterRepresentation;
 
+    /** Converts the letter representation of a card's suit to a suit object
+     * @param letterRepresentation A string containing a character representing the suit.
+     * @return A Suit object.
+    */
     Suits(String letterRepresentation) {
         this.letterRepresentation = letterRepresentation;
     }

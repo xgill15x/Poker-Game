@@ -16,6 +16,10 @@ public class PokerJudge {
     private final List<Player> pairPlayers = new ArrayList<>();
     private final List<Player> highCardPlayers = new ArrayList<>();
 
+    /** Creates a Judge that will decide a winner between all the players.
+     * @param players A list of all participating players.
+     * @return A PokerJudge object.
+    */
     public PokerJudge(List<Player> players) {
         this.players = players;
 
@@ -43,6 +47,9 @@ public class PokerJudge {
         }
     }
 
+    /** Gets the winners of the game based on the all the hands in the game.
+     * @return A list of Player objects for all the winners.
+    */
     public List<Player> getWinners() {
         if (straightFlushPlayers.isEmpty()) {
             if (threeOfAKindPlayers.isEmpty()) {
@@ -66,6 +73,10 @@ public class PokerJudge {
         return breakTiesAndGetWinner(straightFlushPlayers);
     }
 
+    /** Breaks ties between the same groups of hands. Ties are broken by comparing the largest ranks in the all the poker hands.
+     * @param typeOfPlayers A specified groups of hands (E.g. all flushPlayers, all pairPlayers, etc.).
+     * @return A list of Person objects for all winners from the specified group.
+    */
     private List<Player> breakTiesAndGetWinner(List<Player> typeOfPlayers) {
         List<Player> winners = new ArrayList<>();
 
@@ -101,6 +112,10 @@ public class PokerJudge {
         return winners;
     }
 
+    /** Breaks ties between pair hands. Ties are broken by comparing the pairs. If the pairs are tied the remaining cards in the hand are used to break the tie.
+     * @param typeOfPlayers A specified groups of hands (E.g. all flushPlayers, all pairPlayers, etc.).
+     * @return A list of Person objects for all winners from the specified group.
+    */
     private List<Player> breakPairTiesAndGetWinner(List<Player> typeOfPlayers) {
         List<Player> winners = new ArrayList<>();
         Integer largestRank = 0;
@@ -128,7 +143,7 @@ public class PokerJudge {
             }
         }
 
-        //If the pairs are tied, then compare kicker cards
+        //If the pairs are tied, then compare kicker cards (algo made to also accommodate hands larger than 3 cards)
         if (winners.size() > 1) {
             winners.clear();
             for (Player player : typeOfPlayers) {
