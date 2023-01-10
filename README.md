@@ -16,4 +16,4 @@ This is a three-card poker game made using Java.
 * Enumerators used to cleanly represent ranks, suits & hand types.
 
 ##  Known bugs or limitations
-* None that I am aware of.
+* No bugs or limitations.
