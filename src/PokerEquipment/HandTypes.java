@@ -1,4 +1,4 @@
-package PokerLogic;
+package PokerEquipment;
 
 public enum HandTypes {
     STRAIGHT_FLUSH,

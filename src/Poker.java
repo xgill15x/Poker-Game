@@ -1,5 +1,5 @@
 import Player.*;
-import PokerLogic.PokerJudge;
+import PokerEquipment.PokerJudge;
 
 import java.util.*;
 

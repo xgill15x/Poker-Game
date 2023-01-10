@@ -1,7 +1,6 @@
 package Player;
 
-import Card.*;
-import PokerLogic.*;
+import PokerEquipment.*;
 
 import java.util.*;
 

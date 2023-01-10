@@ -1,4 +1,4 @@
-package PokerLogic;
+package PokerEquipment;
 
 import Card.*;
 import Player.*;
