@@ -1,7 +1,7 @@
 
 # Three-card poker game 🎲🃏
 
-This is a three-card poker game made using Java.
+This is a [three-card poker](https://en.wikipedia.org/wiki/Three_Card_Poker) game made using Java.
 
 ## Compilation steps:
 * Install and use Java SE Development Kit 13.0.2 as the project SDK (Latest version of Java 13) [GET IT HERE](https://www.oracle.com/java/technologies/javase/jdk13-archive-downloads.html)
