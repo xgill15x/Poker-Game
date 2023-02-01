@@ -17,3 +17,7 @@ This is a three-card poker game made using Java.
 
 ##  Known bugs or limitations
 * No bugs or limitations.
+
+## Copyright:
+* You may treat my code as open source.
+* Feel free to use it for professional, academic or personal endeavours. 
