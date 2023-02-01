@@ -1,5 +1,5 @@
 
-# Mark43 three-card poker game 🎲🃏
+# Three-card poker game 🎲🃏
 
 This is a three-card poker game made using Java.
 
