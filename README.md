@@ -20,4 +20,4 @@ This is a [three-card poker](https://en.wikipedia.org/wiki/Three_Card_Poker) gam
 
 ## Copyright
 * You may treat my code as open source.
-* Feel free to use it for professional, academic or personal assessments/endeavours. 
+* Feel free to use it for professional, academic or personal assessments/projects. 
