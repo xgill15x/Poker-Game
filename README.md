@@ -19,5 +19,4 @@ This is a [three-card poker](https://en.wikipedia.org/wiki/Three_Card_Poker) gam
 * No bugs or limitations.
 
 ## Copyright
-* You may treat my code as open source.
-* Feel free to use it for professional, academic or personal assessments/projects. 
+* Open source; You may fork my code for any and all professional, academic or personal endeavours.
