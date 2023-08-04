@@ -1,5 +1,5 @@
 
-# Three-card poker game 🎲🃏
+# Poker game 🎲🃏
 
 This is a [three-card poker](https://en.wikipedia.org/wiki/Three_Card_Poker) game made using Java.
 
